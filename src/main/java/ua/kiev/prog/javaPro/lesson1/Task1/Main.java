@@ -7,6 +7,7 @@ public class Main {
         of(Test.class.getDeclaredMethods())
                 .map(method -> method.getAnnotation(MyAnnotation.class))
                 .findAny()
-                .ifPresent(annotation -> new Test().testMe(annotation.a(), annotation.b()));
+                .ifPresent(annotation ->
+                        new Test().testMe(annotation.a(), annotation.b()));
     }
 }

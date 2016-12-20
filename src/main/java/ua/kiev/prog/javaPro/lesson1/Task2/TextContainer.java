@@ -20,15 +20,14 @@ public class TextContainer {
     public void save(String path) {
         List<String> linesToWrite = new ArrayList<>();
         linesToWrite.add(TEXT_TO_SAVE);
+        Optional.of(new File(path))
+                .filter(file -> !file.exists())
+                .ifPresent(file -> writeToFile(path, linesToWrite, file));
+    }
 
+    private void writeToFile(String path, List<String> linesToWrite, File file) {
         try {
-//            File file = new File(path);
-//            if (!file.exists())
-//                file.createNewFile();
-            Optional.of(new File(path))
-                    .filter(file -> !file.exists())
-                    .get().createNewFile();
-
+            file.createNewFile();
             Files.write(Paths.get(path), linesToWrite);
         } catch (IOException e) {
             log.error("Can't write to file!");
